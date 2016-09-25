@@ -1,0 +1,8 @@
+Data Links
+
+Initial Raw Data:
+com-friendster.all.cmty.txt : https://s3-us-west-2.amazonaws.com/sdurgamfinalprojectbucket/data/com-friendster.all.cmty.txt
+
+Communities after being divided into first 5000 and rest:
+firstCommunities.txt : https://s3-us-west-2.amazonaws.com/sdurgamfinalprojectbucket/data/firstCommunities.txt
+nextCommunities.txt : https://s3-us-west-2.amazonaws.com/sdurgamfinalprojectbucket/data/nextCommunities.txt
