@@ -59,7 +59,7 @@ public class userToCommunity {
     job.setMapperClass(CommunityMapper.class);
     job.setCombinerClass(CommunityReducer.class);
     job.setNumReduceTasks(1);
-    //job.setReducerClass(IntSumReducer.class);
+    job.setReducerClass(IntSumReducer.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(Text.class);
     //adding input and output file paths
