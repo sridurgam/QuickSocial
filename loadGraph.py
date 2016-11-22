@@ -78,6 +78,8 @@ if __name__ == "__main__":
 	supernode_df = sqlContext.createDataFrame(supernode_rdd)
 
 	#loading the vertex data
+	headers = vertex_rdd_raw.take(1)
+	vertex_rdd_raw = vertex_rdd_raw.filter(lambda x: x != headers)
 	vertex_rdd = vertex_rdd_raw.map(lambda r: Vertex(r.split()[0],top5000Membership(r.split()[1:]),membershipVector(r.split()[1:])))
 	vertex_df = sqlContext.createDataFrame(vertex_rdd)
 	vertex_df = vertex_df.join(supernode_df, supernode_df.id == vertex_df.id, 'inner').drop(supernode_df.id)
