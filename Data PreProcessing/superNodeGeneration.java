@@ -21,6 +21,7 @@ public class superNodeGeneration {
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
       String[] array = value.toString().split("\\s+");
+
       //extracting the community id
       s1.set(array[0]);
       s2.set(array[1]);
@@ -40,7 +41,7 @@ public class superNodeGeneration {
                        ) throws IOException, InterruptedException {
       Integer out = 0; 
       for (IntWritable val : values) {
-        out = out + val.get();
+        out = out + 1;
       }
       result.set(out);
       context.write(key, result);
@@ -48,20 +49,25 @@ public class superNodeGeneration {
   }
 
   public static void main(String[] args) throws Exception {
-    Configuration conf = new Configuration();
-    Job job = Job.getInstance(conf);
-    //setting job properties
-    job.setJarByClass(userToCommunity.class);
-    job.setMapperClass(superNodeMapper.class);
-    job.setCombinerClass(superNodeReducer.class);
-    job.setNumReduceTasks(1);
-    job.setReducerClass(superNodeReducer.class);
-    job.setOutputKeyClass(Text.class);
-    job.setOutputValueClass(IntWritable.class);
-    //adding input and output file paths
-    FileInputFormat.setInputDirRecursive(job, true);
-    FileInputFormat.addInputPath(job, new Path(args[0]));
-    FileOutputFormat.setOutputPath(job, new Path(args[1]));
-    System.exit(job.waitForCompletion(true) ? 0 : 1);
+	try{
+	    Configuration conf = new Configuration();
+	    Job job = Job.getInstance(conf);
+	    //setting job properties
+	    job.setJarByClass(superNodeGeneration.class);
+	    job.setMapperClass(superNodeMapper.class);
+	    job.setNumReduceTasks(1);
+	    job.setReducerClass(superNodeReducer.class);
+	    job.setOutputKeyClass(Text.class);
+	    job.setOutputValueClass(IntWritable.class);
+	    //adding input and output file paths
+	    FileInputFormat.setInputDirRecursive(job, true);
+	    FileInputFormat.addInputPath(job, new Path(args[0]));
+	    FileOutputFormat.setOutputPath(job, new Path(args[1]));
+	    job.waitForCompletion(true);
+	    System.exit(1);
+	}
+	catch(Exception e){
+		e.getMessage();
+	}
   }
 }
