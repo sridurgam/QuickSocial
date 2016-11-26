@@ -1,5 +1,6 @@
 from numpy import array
 import numpy
+import graphlab as gl
 
 CONVERGENCE_VALUE = 0.1
 NUM_NON_SUPERNODES = int(0.8 * 7944949)
@@ -31,7 +32,7 @@ def updatePrev(src, edge, dst):
 	return (src, edge, dst)
 
 if __name__ == '__main__':
-	graph = graph.load_sgraph("s3://sdurgam/GraphLab/Graph")
+	graph = gl.load_sgraph("s3://sdurgam/GraphLab/Graph")
 	graph = graph.triple_apply(initialise,mutated_fields=['prev'])
 
 	convergence = graph.vertices['isSuperNode'].sum()

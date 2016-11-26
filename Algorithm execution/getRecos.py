@@ -1,3 +1,5 @@
+import graphlab as gl
+
 NUM_USERS = 7944949
 NUM_FIRST = 5000
 NUM_SUPERNODES = 160000
@@ -17,7 +19,7 @@ def getNumRecos(src, edge, dst):
 	return (src, edge, dst)
 
 if __name__ == "__main__":
-	graph = load_sgragh("s3://sank/GraphLab/Graph")
+	graph = gl.load_sgragh("s3://sank/GraphLab/Graph")
 	graph.vertices['recos'] = graph.vertices['prev'].apply(lambda x: getRecos(x))
 
 	graph.vertices['groundTruth'] = groundTruth
