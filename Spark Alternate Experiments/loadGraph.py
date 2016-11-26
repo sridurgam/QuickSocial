@@ -27,6 +27,17 @@ s3_vertices_filepath = "SampleUtoC.txt/"
 s3_supernodes_filepath = "SampleIsSuperNode.txt/"
 s3_edges_filepath = "SampleGraph.txt/"
 
+def testSaveToS3(local_filepath, dst_filepath):
+	v = sc.textFile(local_filepath)
+	record = Row('id', 'memberships')
+	df1 = v.map(lambda r: record(r.split()[0], ','.join(r.split()[1:])))
+	df2 = sqlContext.createDataFrame(df1)
+	df2.collect()
+	#df2.coalesce(1).write.format("com.databricks.spark.csv").save(dst_filepath)
+	df2.coalesce(1).write.json(dst_filepath)
+	df2.describe().show()
+	df2.show()
+	
 def top5000Membership(list_memberships):
 	vector = [0] * 5000
 	for id in list_memberships:
