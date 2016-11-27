@@ -19,7 +19,9 @@ def getNumRecos(src, edge, dst):
 	return (src, edge, dst)
 
 if __name__ == "__main__":
-	graph = gl.load_sgragh("s3://sank/GraphLab/Graph")
+	graph = gl.load_sgraph("s3://sank/GraphLab/Graph")
+	groundTruth = gl.SArray("GroundTruth")
+
 	graph.vertices['recos'] = graph.vertices['prev'].apply(lambda x: getRecos(x))
 
 	graph.vertices['groundTruth'] = groundTruth
